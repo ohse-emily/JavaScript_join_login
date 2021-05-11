@@ -6,7 +6,9 @@ const nunjucks = require('nunjucks');
 const bodyParser = require('body-parser')
 const routers = require('./routers')
 const session = require('express-session')
+const cors = require('cors');
 
+app.use(express.static('uploads'))
 app.use(session({
     secret:'aaa',
     resave:false,
@@ -18,6 +20,7 @@ nunjucks.configure('views',{
     express:app,
 })
 app.set('view engine', 'html')
+app.use(cors());
 
 sequelize.sync({force:false})
 .then(()=>{

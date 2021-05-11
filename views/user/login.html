@@ -1,5 +1,4 @@
 login.html  <br/>
-
 <form method = "post" action ="/user/login_check">
     <table>
         <tr>
@@ -11,11 +10,32 @@ login.html  <br/>
         <tr>
             <td>비밀번호 </td>
             <td>
-                <input type ="text" id ="userid" name = "userpw">
+                <input type ="text" id ="userpw" name = "userpw">
             </td>
         </tr>
     </table>
     <input type ="submit" value = "로그인하기">
 </form>
+{% if flag=="0" %}
+    <script type="text/javascript">
+        alert('아이디, 패스워드 오류')
+        
+        let userid = document.querySelector('#userid');
+        let userpw = document.querySelector('#userpw');
+        
+        userid.setAttribute('style', 'background:lightsalmon');
+        userpw.setAttribute('style', 'background:lightsalmon');
+
+        userid.addEventListener('focus',()=>{
+            userid.setAttribute('style','background:#fff')
+        })
+        userpw.addEventListener('focus',()=>{
+            userpw.setAttribute('style','background:#fff')
+        })
+
+
+    </script>
+{% endif %}
+
 
 

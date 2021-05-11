@@ -8,15 +8,15 @@
         <td>사진</td>
         <td>등록일</td>
     </tr>
-    {% for item in result %}
+
     <tr>
-        <td>{{item.dataValues.id}}</td>
-        <td>{{item.dataValues.userid}}</td>
-        <td>{{item.dataValues.userpw}}</td>
-        <td>{{item.dataValues.username}}</td>
-        <td>{{item.dataValues.gender}}</td>
-        <td>{{item.dataValues.userimage}}</td>
-        <td>{{item.dataValues.userdt}}</td>
+        <td>{{result.dataValues.id}}</td>
+        <td>{{result.dataValues.userid}}</td>
+        <td>{{result.dataValues.userpw}}</td>
+        <td>{{result.dataValues.username}}</td>
+        <td>{{result.dataValues.gender}}</td>
+        <td>{{result.dataValues.userimage}}</td>
+        <td>{{result.dataValues.userdt}}</td>
     </tr>
-    {% endfor %}
+
 </table>

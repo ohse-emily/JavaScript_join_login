@@ -2,24 +2,31 @@ join.html <br/>
 
 회원가입 PAGE <br/>
 
-<form method = "post" action = "/user/join_success">
+<form id ="login_form" method = "post" action = "/user/join_success" enctype="multipart/form-data">
     <table>
         <tr>
             <td>아이디</td>
             <td>
-                <input type ="text" name ="userid" >
+                <input type ="text" id ="userid" name ="userid" >
+                <p id = "userid_msg"></p>
             </td>
         </tr>
         <tr>
-            <td>비번</td>
+            <td>패스워드</td>
             <td>
-                <input type ="text" name ="userpw" >
+                <input type ="password" id = "userpw" name ="userpw" >
+            </td>
+        </tr>
+        <tr>
+            <td>패스워드</td>
+            <td>
+                <input type ="password" id = "userpw_check" name ="userpw_check" >
             </td>
         </tr>
         <tr>
             <td>이름</td>
             <td>
-                <input type ="text" name ="username" >
+                <input type ="text" name ="username" minlength = "5" maxlength="20">
             </td>
         </tr>
         <tr>
@@ -29,6 +36,50 @@ join.html <br/>
                 <input type ="radio" name ="gender" value="1" >여자
             </td>
         </tr>
+        <tr>
+            <td>이미지</td>
+            <td>
+                <input type ="file" name ="img" >
+            </td>
+        </tr>
     </table>
-    <input type="submit" value="회원가입하기">
+    <input type="button" id = "login_submit" value="회원가입하기">
 </form>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+<script type = "text/javascript">
+    let pwd1 = document.querySelector('#userpw');
+    let pwd2 = document.querySelector('#userpw_check');
+    let btn = document.querySelector('#login_submit');
+    let login_form = document.querySelector('#login_form');
+
+    btn.addEventListener('click', ()=>{
+        if(pwd1.value==pwd2.value){
+            login_form.submit();
+        }else{
+            alert('패스워드가 일치하지 않습니다.')
+            pwd1.value ='';
+            pwd2.value =''; 
+            pwd1.focus();
+        }
+    });
+
+
+    let userid_msg = document.querySelector('#userid_msg');
+    let userid = document.querySelector('#userid');
+    userid.addEventListener('focusout', userid_check);
+
+    async function userid_check(){
+        let data = await axios.get(`http://localhost:3000/user/userid_check?userid=${userid.value}`)
+        console.log(data);
+
+        login_flag = data.data.login; // 중복되지 않았다 = 기본값 /false = 중복됨 
+        if(login_flag){
+            userid_msg.innerHTML ='사용할 수 있는 아이디입니다.';
+            userid_msg.style.color='green';
+        }else{
+            userid_msg.innerHTML ='이미 존재하는 아이디입니다.';
+            userid_msg.style.color='red';
+        }
+    }
+
+</script>
